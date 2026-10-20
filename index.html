@@ -201,8 +201,8 @@ aside li+li{margin-top:2px}
   </svg>
 
   <div class="lanehd" style="top:108px;height:102px"><span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><b data-i="lnC"></b></div>
-  <div class="lanehd" style="top:230px;height:148px"><span class="av"><img src="assets/pharmacy.png" alt=""></span><b data-i="lnP"></b><small data-i="lnPs"></small></div>
-  <div class="lanehd" style="top:398px;height:102px"><span class="av"><img src="assets/doctor.png" alt="" style="width:42px;height:42px"></span><b data-i="lnD"></b><small data-i="lnDs"></small></div>
+  <div class="lanehd" style="top:230px;height:148px"><span class="av"><img src="pharmacy.png" alt=""></span><b data-i="lnP"></b><small data-i="lnPs"></small></div>
+  <div class="lanehd" style="top:398px;height:102px"><span class="av"><img src="doctor.png" alt="" style="width:42px;height:42px"></span><b data-i="lnD"></b><small data-i="lnDs"></small></div>
   <div class="lanehd" style="top:520px;height:88px"><b data-i="lnX"></b><small>MetaMed</small></div>
 
   <div id="nodes"></div>
@@ -237,7 +237,7 @@ const UI={
  note:["Draft đề xuất cho chị Phương | Giá trị voucher và đơn vị tài trợ chưa chốt","Draft for chị Phương | Voucher value and sponsor not final"],
  confirm:["Cần confirm","To confirm"]
 };
-const P='assets/pharmacy.png', D='assets/doctor.png';
+const P='pharmacy.png', D='doctor.png';
 const N={
  kl:{x:169,y:114,w:112,h:42,cls:'cust',t:["Khách lạ","New customer"],s:["Chưa quen nhà thuốc","Not known to the pharmacy"],k:["Khách hàng","Customer"],
    d:[[["Tình huống","Situation"],["Khách bị mụn, vào nhà thuốc hỏi mua Differin nhưng không có toa bác sĩ.","A customer with acne asks for Differin at the pharmacy but has no prescription."]],
@@ -273,10 +273,10 @@ const N={
       [["Giữ chân","Retention"],["Khách lạ trở thành khách của nhà thuốc, mua lại khi tái khám.","A stranger becomes a pharmacy customer and returns after follow-up visits."]]]},
  out:{x:169,y:527,w:242,h:74,cls:'plat out',k:["Hiện tại","Today"],t:["Ngoài hệ thống","Outside any platform"],s:["Không data | Không giữ chân","No data | No retention"],
    d:[[["Hiện tại","Today"],["Bán không toa hoặc reject đều diễn ra ngoài hệ thống, không ai biết khách là ai và có điều trị đúng không.","Selling without a prescription or rejecting both happen off-platform. Nobody knows who the customer is or whether they were treated properly."]]]},
- ym:{x:429,y:527,w:242,h:74,cls:'plat ym',logo:'assets/youmed.png',lw:96,t:"YouMed",s:["Voucher | Booking | Hồ sơ patient","Voucher | Booking | Patient profile"],k:["Nền tảng | Patient","Platform | Patient"],
+ ym:{x:429,y:527,w:242,h:74,cls:'plat ym',logo:'youmed.png',lw:96,t:"YouMed",s:["Voucher | Booking | Hồ sơ patient","Voucher | Booking | Patient profile"],k:["Nền tảng | Patient","Platform | Patient"],
    d:[[["Vai trò","Role"],["App của bệnh nhân: nhận voucher, đặt lịch bác sĩ, lưu hồ sơ khám.","The patient app: receives the voucher, books the doctor, stores visit records."]],
       [["Nhận được","Gains"],["Thêm bệnh nhân onboard từ kênh nhà thuốc.","New patients onboarded from the pharmacy channel."]]]},
- dw:{x:689,y:527,w:242,h:74,cls:'plat dw',logo:'assets/doctorworkspace.png',lw:96,t:"Doctor Workspace",s:["Toa điện tử | Patient data | Network nhà thuốc","e-Prescription | Patient data | Pharmacy network"],k:["Nền tảng | Bác sĩ","Platform | Doctor"],
+ dw:{x:689,y:527,w:242,h:74,cls:'plat dw',logo:'doctorworkspace.png',lw:96,t:"Doctor Workspace",s:["Toa điện tử | Patient data | Network nhà thuốc","e-Prescription | Patient data | Pharmacy network"],k:["Nền tảng | Bác sĩ","Platform | Doctor"],
    d:[[["Vai trò","Role"],["Công cụ của bác sĩ: quản lý bệnh nhân, kê toa, kết nối network nhà thuốc giới thiệu.","The doctor's tool: manages patients, writes prescriptions, links to referring pharmacies."]],
       [["Nhận được","Gains"],["Thêm bác sĩ onboard | Mỗi nhà thuốc mới là một nguồn bệnh nhân.","More doctors onboarded | Every new pharmacy is a source of patients."]]]}
 };
@@ -314,7 +314,7 @@ function renderNodes(){for(const id in N){const n=N[id],b=document.getElementByI
  if(n.logo){b.innerHTML='<span class="plate" style="width:'+(n.lw+16)+'px"><img src="'+n.logo+'" alt="'+T(n.t)+'" style="width:'+n.lw+'px"></span><span class="pt"><b>'+T(n.t)+'</b><small>'+T(n.s)+'</small></span>';continue}
  b.innerHTML=(n.ticket?'<span class="ticket">'+n.ticket+'</span>':'')+'<b>'+seg(T(n.t))+'</b>'+(n.s?'<small>'+seg(T(n.s))+'</small>':'')
   +(n.ch?'<span class="ch '+n.ch[0]+'">'+T(n.ch[1])+'</span>':'')+(n.kpi?'<span class="kpi">'+T(n.kpi)+'</span>':'')}
- bens.innerHTML=BEN.map((x,i)=>'<div class="ben" style="left:'+(40+i*232)+'px"><span class="av">'+(x.ic?'<img src="'+x.ic+'" alt="">':x.svg?PERSON:'<img src="assets/y-mark.png" alt="" style="width:22px;height:22px;border-radius:5px">')+'</span><div class="bt"><span class="k">'+T(x.k)+'</span><b>'+T(x.t)+'</b><p>'+T(x.p)+'</p></div></div>').join('')}
+ bens.innerHTML=BEN.map((x,i)=>'<div class="ben" style="left:'+(40+i*232)+'px"><span class="av">'+(x.ic?'<img src="'+x.ic+'" alt="">':x.svg?PERSON:'<img src="y-mark.png" alt="" style="width:22px;height:22px;border-radius:5px">')+'</span><div class="bt"><span class="k">'+T(x.k)+'</span><b>'+T(x.t)+'</b><p>'+T(x.p)+'</p></div></div>').join('')}
 function overview(){panel.innerHTML=lang==='vi'
  ?'<div class="k">Cách đọc</div><h2>Biến điểm nghẽn ETC thành một vòng khép kín</h2><dl><dd><b class="c-r">Điểm nghẽn</b>: Differin là thuốc ETC. Khách lạ không có toa thì nhà thuốc reject vì sợ mystery patient của Sở Y tế.</dd><dd><b class="c-a">Khách quen</b>: nhà thuốc vẫn bán không toa. Bán được nhưng không scale được.</dd><dd><b class="c-g">Mô hình Hedima</b>: voucher khám là trigger giữ chân cả 3 bên trên YouMed và Doctor Workspace.</dd></dl><div class="k">Vòng chuyển đổi</div><div class="fun"><div><i>1</i>Khách lạ hỏi mua, không có toa</div><div><i>2</i>Nhà thuốc giới thiệu bác sĩ + voucher</div><div><i>3</i>Book khám trên YouMed</div><div><i>4</i>Bác sĩ kê toa trên Doctor Workspace</div><div><i>5</i>Quay lại nhà thuốc mua Differin</div></div><div class="flag"><b>Cần confirm</b>Hãng không được trả tiền cho bác sĩ để kê đơn. Voucher cần đi qua nền tảng hoặc bên thứ 3 và không gắn điều kiện kê Differin.</div>'
  :'<div class="k">How to read</div><h2>Turning the ETC bottleneck into a closed loop</h2><dl><dd><b class="c-r">Bottleneck</b>: Differin is prescription-only. Without a prescription, pharmacies turn strangers away for fear of Department of Health mystery patients.</dd><dd><b class="c-a">Regulars</b>: pharmacies still sell without a prescription. It works but cannot scale.</dd><dd><b class="c-g">Hedima model</b>: a consultation voucher keeps all 3 sides engaged on YouMed and Doctor Workspace.</dd></dl><div class="k">Conversion loop</div><div class="fun"><div><i>1</i>Stranger asks, no prescription</div><div><i>2</i>Pharmacy refers a doctor + voucher</div><div><i>3</i>Books a visit on YouMed</div><div><i>4</i>Doctor prescribes in Doctor Workspace</div><div><i>5</i>Returns to the pharmacy for Differin</div></div><div class="flag"><b>To confirm</b>The brand may not pay doctors to prescribe. The voucher must run through the platform or a third party and never require a Differin prescription.</div>'}
