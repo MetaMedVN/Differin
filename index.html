@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Differin Voucher Loop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one 1280x800 swimlane canvas (Khách hàng | Nhà thuốc | Bác sĩ | Nền tảng) scaled to fit; benefit strip under lanes; step detail panel on the right. */
+:root{
+  --bg:#FFFFFF; --surface:#F2F6F4; --ink:#0E1A2B; --muted:#5B6878; --line:#CDD6DE; --wire:#A7B3BF;
+  --blue:#0447C3; --blue-soft:#E7EEFB; --green:#06925A; --green-soft:#E2F5EB;
+  --red:#D9483F; --red-soft:#FDECEA; --amber:#B7791F; --amber-soft:#FFF5E3; --amber-ink:#7A4E0E;
+  --plate:#FFFFFF; --on-accent:#FFFFFF; --shadow:rgba(4,71,195,.14);
+  --display:"Be Vietnam Pro","Manrope",Arial,sans-serif; --body:"Manrope","Be Vietnam Pro",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0C1420; --surface:#142030; --ink:#E5ECF4; --muted:#93A2B4; --line:#2A3A4E; --wire:#4A5B70;
+  --blue:#86A8FF; --blue-soft:#17264A; --green:#4FD08E; --green-soft:#0F2E22;
+  --red:#FF7E74; --red-soft:#3A1D1F; --amber:#E5AA4E; --amber-soft:#2E2415; --amber-ink:#F2CD8E;
+  --plate:#F4F7FA; --on-accent:#0C1420; --shadow:rgba(0,0,0,.45); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1420; --surface:#142030; --ink:#E5ECF4; --muted:#93A2B4; --line:#2A3A4E; --wire:#4A5B70;
+  --blue:#86A8FF; --blue-soft:#17264A; --green:#4FD08E; --green-soft:#0F2E22;
+  --red:#FF7E74; --red-soft:#3A1D1F; --amber:#E5AA4E; --amber-soft:#2E2415; --amber-ink:#F2CD8E;
+  --plate:#F4F7FA; --on-accent:#0C1420; --shadow:rgba(0,0,0,.45); color-scheme:dark}
+html,body{height:100%;background:var(--bg)}
+body{margin:0;box-sizing:border-box;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));font-family:var(--body);color:var(--ink);overflow:hidden}
+.viewport{width:100%;height:100%;position:relative}
+.stage{width:1280px;height:800px;transform-origin:top left;position:absolute;top:0;left:0;background:var(--bg);overflow:hidden}
+.top,.flow,.bot{position:absolute;width:1280px;left:0}
+.top{top:0;height:96px}
+.flow{top:0;height:800px;pointer-events:none}
+.flow>*{pointer-events:auto}
+.flow svg.wires{pointer-events:none}
+.bot{top:756px;height:44px}
+
+header{position:absolute;left:40px;top:12px;width:600px}
+h1{white-space:nowrap}
+.eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.14em;color:var(--green);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.15;margin:6px 0 0;text-wrap:balance}
+.narr{position:absolute;left:40px;top:76px;width:920px;font-size:12px;color:var(--muted);line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.narr strong{color:var(--green)}
+.narr strong.r{color:var(--red)} .narr strong.a{color:var(--amber)}
+
+.controls{position:absolute;right:36px;top:50px;display:flex;align-items:center;gap:6px}
+.lbl{font-size:10.5px;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+.chip{font:700 11.5px var(--body);border:1.5px solid var(--green);background:var(--bg);color:var(--green);border-radius:999px;padding:5px 10px;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s}
+.chip.amber{border-color:var(--amber);color:var(--amber)}
+.chip.red{border-color:var(--red);color:var(--red)}
+.chip:hover,.chip.act{background:var(--green);color:var(--on-accent)}
+.chip.amber:hover,.chip.amber.act{background:var(--amber);color:var(--on-accent)}
+.chip.red:hover,.chip.red.act{background:var(--red);color:var(--on-accent)}
+.chip.ghost{border-color:var(--line);color:var(--muted)}
+.chip.ghost:hover{background:var(--surface);color:var(--ink)}
+.chip:focus-visible,.seg button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.toggles{position:absolute;right:36px;top:10px;display:flex;gap:8px;align-items:center}
+.seg{display:flex;border:1.5px solid var(--line);border-radius:999px;padding:2px;background:var(--surface)}
+.seg button{font:800 10.5px var(--body);letter-spacing:.06em;border:0;background:transparent;color:var(--muted);border-radius:999px;padding:4px 9px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.fs{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.fs:hover{border-color:var(--green);color:var(--green)}
+.fs:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.fs svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+svg.wires{position:absolute;left:0;top:0;width:1280px;height:800px}
+.band{fill:var(--surface);stroke:var(--line);stroke-width:1}
+.band.alt{fill:var(--bg)}
+.mk{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.mk-n{stroke:var(--green)} .mk-o{stroke:var(--red)} .mk-a{stroke:var(--amber)} .mk-h{stroke:var(--ink)}
+.wire{stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s,opacity .3s,stroke-width .3s}
+.wire.new{stroke:var(--green)}
+.wire.old{stroke:var(--red);stroke-dasharray:4 4}
+.wire.risk{stroke:var(--amber);stroke-dasharray:5 4}
+.wire.on{stroke-width:2.6;stroke-dasharray:0}
+.dim .wire:not(.on){opacity:.15}
+.wlabel{font:700 10px var(--body);fill:var(--muted);letter-spacing:.02em;transition:opacity .3s}
+.wlabel.g{fill:var(--green)} .wlabel.a{fill:var(--amber)}
+.dim .wlabel{opacity:.25}
+.dim .wlabel.on{opacity:1}
+
+.lanehd{position:absolute;left:38px;width:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center}
+.lanehd .av{width:46px;height:46px;border-radius:50%;background:var(--plate);border:1.5px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.lanehd .av img{width:34px;height:34px;object-fit:contain}
+.lanehd .av svg{width:26px;height:26px;fill:none;stroke:#2FA866;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lanehd b{font-family:var(--display);font-size:12.5px;font-weight:800;line-height:1.15}
+.lanehd small{font-size:9.5px;color:var(--muted);line-height:1.2}
+
+.node{position:absolute;box-sizing:border-box;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:5px 8px;text-align:center;cursor:pointer;font:inherit;color:var(--ink);transition:transform .2s,border-color .3s,background .3s,opacity .3s,box-shadow .3s;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px}
+.nb{white-space:nowrap}
+.node b{font-family:var(--display);font-size:12px;font-weight:700;line-height:1.2}
+.node small{font-size:10px;color:var(--muted);line-height:1.25}
+.node.new{background:var(--green-soft);border-color:var(--green)}
+.node.key{box-shadow:0 0 0 4px var(--green-soft),0 0 0 5.5px var(--green)}
+.node.old{background:var(--red-soft);border-color:var(--red);border-style:dashed}
+.node.old b{color:var(--red)}
+.node.risk{background:var(--amber-soft);border-color:var(--amber);border-style:dashed}
+.node.cust{background:var(--bg)}
+.node.old{padding-top:10px}
+.node .ch{position:absolute;top:-8px;right:8px;font-size:8.5px;font-weight:800;letter-spacing:.1em;padding:1px 6px;border-radius:999px;background:var(--bg);border:1px solid currentColor;text-transform:uppercase;white-space:nowrap}
+.ch.cym{color:var(--blue)} .ch.cdw{color:var(--green)} .ch.cold{color:var(--red)} .ch.crisk{color:var(--amber)}
+.node .kpi{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);font-size:8.5px;font-weight:800;letter-spacing:.1em;padding:1px 6px;border-radius:999px;background:var(--ink);color:var(--bg);white-space:nowrap;text-transform:uppercase}
+.node .ticket{display:inline-block;font-size:8.5px;font-weight:800;letter-spacing:.1em;color:var(--on-accent);background:var(--green);border-radius:4px;padding:1px 6px;text-transform:uppercase;position:absolute;top:-8px;left:8px}
+.node:hover{transform:translateY(-2px);box-shadow:0 6px 16px var(--shadow)}
+.node.key:hover{box-shadow:0 0 0 4px var(--green-soft),0 0 0 5.5px var(--green),0 6px 16px var(--shadow)}
+.node:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.node.sel{outline:2.5px solid var(--blue);outline-offset:3px}
+.dim .node:not(.on){opacity:.28}
+.node.on{transform:translateY(-1px)}
+
+.node.plat{flex-direction:row;justify-content:flex-start;gap:12px;padding:8px 12px;text-align:left;background:var(--bg)}
+.node.plat .plate{flex:none;background:var(--plate);border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;height:46px}
+.node.plat .plate img{display:block}
+.node.plat .pt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.node.plat.out{background:transparent;border-style:dashed;justify-content:center;text-align:center}
+.node.plat.out{flex-direction:column}
+.node.plat.out .pt{align-items:center}
+.node.plat.ym{border-color:var(--blue)}
+.node.plat.dw{border-color:var(--green)}
+
+.ben{position:absolute;top:654px;height:96px;width:226px;box-sizing:border-box;border-top:3px solid var(--green);padding:8px 4px 0 0;display:flex;gap:10px;transition:opacity .3s}
+.ben .av{flex:none;width:34px;height:34px;border-radius:50%;background:var(--plate);border:1.5px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.ben .av img{width:24px;height:24px;object-fit:contain}
+.ben .av svg{width:20px;height:20px;fill:none;stroke:#2FA866;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ben .bt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ben .k{font-size:9.5px;font-weight:800;letter-spacing:.12em;color:var(--green);text-transform:uppercase}
+.ben b{font-family:var(--display);font-size:12.5px;line-height:1.2}
+.ben p{margin:0;font-size:11px;line-height:1.4;color:var(--muted)}
+.dim .ben{opacity:.3}
+.dim.fin .ben{opacity:1}
+.benhd{position:absolute;left:40px;top:634px;font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+
+aside{position:absolute;left:990px;top:104px;width:254px;height:640px;box-sizing:border-box;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:11px;overflow:auto}
+aside .k{font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--green);text-transform:uppercase}
+aside h2{font-family:var(--display);font-size:18px;font-weight:800;margin:0;line-height:1.2;text-wrap:balance}
+aside dl{margin:0;display:flex;flex-direction:column;gap:9px}
+aside dt{font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+aside dd{margin:2px 0 0;font-size:12px;line-height:1.45}
+aside ul{margin:3px 0 0;padding-left:17px;font-size:12px;line-height:1.45}
+aside li+li{margin-top:2px}
+.flag{background:var(--amber-soft);color:var(--amber-ink);border:1px dashed var(--amber);border-radius:8px;padding:7px 9px;font-size:11.5px;line-height:1.4}
+.flag b{display:block;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+.fun{display:flex;flex-direction:column;gap:5px}
+.fun div{display:flex;align-items:center;gap:8px;font-size:12px;line-height:1.3}
+.fun i{font-style:normal;flex:none;width:21px;height:21px;border-radius:50%;background:var(--green-soft);color:var(--green);font-weight:800;font-size:10.5px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.c-r{color:var(--red)} .c-g{color:var(--green)} .c-a{color:var(--amber)}
+
+.legend{position:absolute;left:40px;bottom:12px;display:flex;gap:16px;font-size:11px;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:13px;height:13px;border-radius:4px;vertical-align:-3px;margin-right:5px;border:1.5px solid var(--line);background:var(--bg)}
+.sw.n{background:var(--green-soft);border-color:var(--green)}
+.sw.o{background:var(--red-soft);border-color:var(--red);border-style:dashed}
+.sw.a{background:var(--amber-soft);border-color:var(--amber);border-style:dashed}
+.note{position:absolute;right:36px;bottom:12px;font-size:10.5px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="viewport" id="vp">
+<div class="stage" id="stage">
+ <div class="top" id="top">
+  <header>
+    <div class="eyebrow" data-i="eyebrow"></div>
+    <h1 data-i="title"></h1>
+  </header>
+  <div class="controls">
+    <span class="lbl" data-i="play"></span>
+    <button class="chip amber" id="s-a" data-s="a" data-i="sA"></button>
+    <button class="chip red" id="s-b" data-s="b" data-i="sB"></button>
+    <button class="chip" id="s-c" data-s="c" data-i="sC"></button>
+    <button class="chip ghost" id="s-r" data-s="r" data-i="reset"></button>
+  </div>
+  <div class="toggles">
+    <div class="seg" role="group" aria-label="Language"><button id="l-vi" data-l="vi">VN</button><button id="l-en" data-l="en">EN</button></div>
+    <button class="fs" id="fs" aria-label="Fullscreen" title="Fullscreen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    <div class="seg" role="group" aria-label="Theme"><button id="t-light" data-t="light" data-i="light"></button><button id="t-dark" data-t="dark" data-i="dark"></button></div>
+  </div>
+  <div class="narr" id="narr"></div>
+ </div>
+ <div class="flow" id="flow">
+  <svg class="wires" id="wires" viewBox="0 0 1280 800" aria-hidden="true">
+    <defs>
+      <marker id="mn" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path class="mk mk-n" d="M2,1.5L8.5,5L2,8.5"/></marker>
+      <marker id="mo" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path class="mk mk-o" d="M2,1.5L8.5,5L2,8.5"/></marker>
+      <marker id="ma" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path class="mk mk-a" d="M2,1.5L8.5,5L2,8.5"/></marker>
+    </defs>
+    <rect class="band" x="30" y="104" width="930" height="110" rx="12"/>
+    <rect class="band alt" x="30" y="226" width="930" height="156" rx="12"/>
+    <rect class="band" x="30" y="394" width="930" height="110" rx="12"/>
+    <rect class="band alt" x="30" y="516" width="930" height="96" rx="12"/>
+    <g id="wiresG"></g>
+    <text class="wlabel" x="290" y="123" data-w="kl-n3" data-i="wAsk"></text>
+    <text class="wlabel a" x="286" y="178" data-w="kq-n2" data-i="wSell"></text>
+    <text class="wlabel g" x="548" y="257" data-w="n3-p4">Voucher</text>
+    <text class="wlabel g" x="751" y="340" data-w="p4-d5" data-i="wVisit"></text>
+    <text class="wlabel g" x="804" y="390" text-anchor="end" data-w="d5-p6" data-i="wRx"></text>
+    <text class="wlabel g" x="881" y="215" data-w="p6-n6" data-i="wBuy"></text>
+  </svg>
+
+  <div class="lanehd" style="top:108px;height:102px"><span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><b data-i="lnC"></b></div>
+  <div class="lanehd" style="top:230px;height:148px"><span class="av"><img src="assets/pharmacy.png" alt=""></span><b data-i="lnP"></b><small data-i="lnPs"></small></div>
+  <div class="lanehd" style="top:398px;height:102px"><span class="av"><img src="assets/doctor.png" alt="" style="width:42px;height:42px"></span><b data-i="lnD"></b><small data-i="lnDs"></small></div>
+  <div class="lanehd" style="top:520px;height:88px"><b data-i="lnX"></b><small>MetaMed</small></div>
+
+  <div id="nodes"></div>
+
+  <div class="benhd" data-i="benHd"></div>
+  <div id="bens"></div>
+
+  <aside id="panel" aria-live="polite"></aside>
+ </div>
+ <div class="bot" id="bot">
+  <div class="legend"><span><i class="sw n"></i><span data-i="lg1"></span></span><span><i class="sw o"></i><span data-i="lg2"></span></span><span><i class="sw a"></i><span data-i="lg3"></span></span><span><i class="sw"></i><span data-i="lg4"></span></span></div>
+  <div class="note" data-i="note"></div>
+ </div>
+</div>
+</div>
+
+<script>
+let lang='vi';
+const T=v=>Array.isArray(v)?v[lang==='vi'?0:1]:v;
+const UI={
+ eyebrow:"DKSH x Hedima | Differin (Adapalene) | Thuốc ETC",
+ title:["Patient Flow | Mua Differin tại nhà thuốc","Patient Flow | Differin at the Pharmacy"],
+ play:"Play journey", reset:["Đặt lại","Reset"], light:["Sáng","Light"], dark:["Tối","Dark"],
+ sA:["Khách quen","Regular customer"], sB:["Khách lạ | Hiện tại","New customer | Today"], sC:["Khách lạ | Mô hình Hedima","New customer | Hedima model"],
+ narr:["Differin là thuốc ETC, cần toa bác sĩ. Bấm Play journey để xem 3 tình huống tại quầy nhà thuốc.","Differin is a prescription (ETC) drug. Press Play journey to see 3 situations at the pharmacy counter."],
+ wAsk:["Hỏi mua Differin | Không có toa","Asks for Differin | No prescription"],
+ wSell:["Bán không toa","Sold without Rx"], wVisit:["Đến khám","Visits doctor"], wRx:["Toa","Rx"], wBuy:["Mua Differin","Buys Differin"],
+ lnC:["Khách hàng","Customer"], lnP:["Nhà thuốc","Pharmacy"], lnPs:["Dược sĩ tại quầy","Pharmacist at the counter"],
+ lnD:["Bác sĩ","Doctor"], lnDs:["Trong network","In the network"], lnX:["Nền tảng","Platforms"],
+ benHd:["Lợi ích vòng lặp khép kín","Closed-loop benefits"],
+ lg1:["Mô hình Hedima","Hedima model"], lg2:["Điểm nghẽn hiện tại","Today's bottleneck"], lg3:["Rủi ro compliance","Compliance risk"], lg4:["Đang có","Existing"],
+ note:["Draft đề xuất cho chị Phương | Giá trị voucher và đơn vị tài trợ chưa chốt","Draft for chị Phương | Voucher value and sponsor not final"],
+ confirm:["Cần confirm","To confirm"]
+};
+const P='assets/pharmacy.png', D='assets/doctor.png';
+const N={
+ kl:{x:169,y:114,w:112,h:42,cls:'cust',t:["Khách lạ","New customer"],s:["Chưa quen nhà thuốc","Not known to the pharmacy"],k:["Khách hàng","Customer"],
+   d:[[["Tình huống","Situation"],["Khách bị mụn, vào nhà thuốc hỏi mua Differin nhưng không có toa bác sĩ.","A customer with acne asks for Differin at the pharmacy but has no prescription."]],
+      [["Điểm nghẽn","Bottleneck"],["Differin (adapalene) là thuốc ETC, phải có toa mới được bán. Dược sĩ không biết khách lạ có phải mystery patient của Sở Y tế hay không, nên không dám bán.","Differin (adapalene) is a prescription-only (ETC) drug. The pharmacist can't tell whether a stranger is a Department of Health mystery patient, so they won't sell it."]]]},
+ kq:{x:169,y:164,w:112,h:42,cls:'cust',t:["Khách quen","Regular customer"],s:["Mua nhiều lần","Buys often"],k:["Khách hàng","Customer"],
+   d:[[["Tình huống","Situation"],["Khách đã mua nhiều lần, dược sĩ quen mặt.","A repeat customer the pharmacist knows."]],
+      [["Hiện tại","Today"],["Nhà thuốc vẫn bán Differin không cần toa vì biết chắc đây không phải mystery patient.","The pharmacy still sells Differin without a prescription, because it knows this is not a mystery patient."]]]},
+ n2:{x:299,y:246,w:112,h:50,cls:'risk',ch:['crisk',["Rủi ro","Risk"]],t:["Bán luôn","Sells anyway"],s:["Không toa","No prescription"],k:["Nhà thuốc | Khách quen","Pharmacy | Regular"],
+   d:[[["Vì sao bán","Why they sell"],["Khách quen nên dược sĩ không sợ bị kiểm tra.","It's a regular, so the pharmacist doesn't fear an inspection."]],
+      [["Giới hạn","Limits"],["<ul><li>Vẫn là bán thuốc ETC không toa</li><li>Không mở rộng được sang khách mới</li><li>Không có data, không ai theo dõi điều trị</li></ul>","<ul><li>Still an ETC sale without a prescription</li><li>Can't extend to new customers</li><li>No data, no one follows the treatment</li></ul>"]]]},
+ rj:{x:429,y:318,w:112,h:52,cls:'old',ch:['cold',["Hiện tại","Today"]],t:"Reject",s:["Mất khách | Mất doanh thu","Lost customer | Lost sale"],k:["Nhà thuốc | Hiện tại","Pharmacy | Today"],
+   d:[[["Chuyện gì xảy ra","What happens"],["Dược sĩ từ chối bán vì khách không có toa. Khách ra về, có thể mua online hoặc chuyển sang sản phẩm khác.","The pharmacist refuses because there is no prescription. The customer leaves and may buy online or switch products."]],
+      [["Hệ quả","Result"],["Nhà thuốc mất doanh thu | Differin mất sell-out | Không ai giữ được khách","Pharmacy loses the sale | Differin loses sell-out | Nobody keeps the customer"]]]},
+ n3:{x:429,y:236,w:112,h:54,cls:'new key',ticket:"Voucher",t:["Giới thiệu bác sĩ","Refers to a doctor"],s:["Thay vì reject","Instead of rejecting"],kpi:"Trigger",k:["Nhà thuốc | Mô hình Hedima","Pharmacy | Hedima model"],
+   d:[[["Dược sĩ làm gì","Pharmacist does"],["Giới thiệu khách đến bác sĩ da liễu trong network (gần nhà thuốc) để lấy toa, kèm voucher khám trên YouMed.","Refers the customer to a nearby network dermatologist to get a prescription, with a consultation voucher on YouMed."]],
+      [["Voucher là trigger","Why the voucher"],["Giảm rào cản chi phí và thời gian, kích tỷ lệ khách đi khám thay vì bỏ về.","Lowers the cost and effort barrier, so more customers go to the doctor instead of walking away."]],
+      [["Compliance","Compliance"],["Dược sĩ không tự kê, không bán ETC khi chưa có toa.","The pharmacist neither prescribes nor sells ETC without a prescription."]]],
+   f:["Ai tài trợ voucher (nền tảng | nhà thuốc | hãng qua bên thứ 3) | Voucher chỉ trả phí khám, không gắn điều kiện bác sĩ phải kê Differin.","Who funds the voucher (platform | pharmacy | brand via a third party) | The voucher pays for the visit only and never requires the doctor to prescribe Differin."]},
+ p4:{x:559,y:114,w:112,h:50,cls:'new',ch:['cym',"YouMed"],t:["Book khám","Books a visit"],s:["Dùng voucher","Uses the voucher"],kpi:"Booking",k:["Khách hàng | YouMed","Customer | YouMed"],plat:'ym',
+   d:[[["Ở đâu","Where"],["Khách nhập voucher và đặt lịch với bác sĩ được giới thiệu trên YouMed App.","The customer enters the voucher and books the referred doctor on the YouMed App."]],
+      [["Ghi nhận","Tracking"],["Mã voucher gắn với nhà thuốc giới thiệu, đo được nhà thuốc nào chuyển đổi tốt.","Each voucher code is tied to the referring pharmacy, so conversion is measured per pharmacy."]]]},
+ d5:{x:689,y:424,w:112,h:50,cls:'new',ch:['cdw',"DW"],t:["Khám + kê toa","Consult + Rx"],s:["Adapalene khi phù hợp","Adapalene if suitable"],kpi:["Toa","Rx"],k:["Bác sĩ | Doctor Workspace","Doctor | Doctor Workspace"],plat:'dw',
+   d:[[["Bác sĩ làm gì","Doctor does"],["Thăm khám da, độc lập quyết định chỉ định. Kê adapalene (Differin) khi phù hợp, toa lưu trên Doctor Workspace.","Examines the skin and decides independently. Prescribes adapalene (Differin) when suitable; the prescription is kept in Doctor Workspace."]],
+      [["An toàn","Safety"],["Bác sĩ hỏi kỹ các chống chỉ định như mang thai trước khi kê retinoid.","The doctor checks contraindications such as pregnancy before prescribing a retinoid."]]]},
+ d6:{x:819,y:424,w:112,h:50,cls:'new',t:"Patient value",s:"Upsell | Cross-sell",k:["Bác sĩ","Doctor"],plat:'dw',
+   d:[[["Bác sĩ có thêm","Doctor gains"],["Data bệnh nhân mới trên Doctor Workspace.","New patient data in Doctor Workspace."]],
+      [["Khai thác","Patient value"],["<ul><li>Tái khám theo dõi mụn</li><li>Liệu trình điều trị tại phòng khám</li><li>Dịch vụ da liễu khác</li></ul>","<ul><li>Acne follow-up visits</li><li>In-clinic treatment courses</li><li>Other dermatology services</li></ul>"]]]},
+ p6:{x:819,y:114,w:112,h:50,cls:'new',t:["Quay lại nhà thuốc","Back to the pharmacy"],s:["Cầm toa","With the Rx"],k:["Khách hàng","Customer"],
+   d:[[["Khách làm gì","Customer does"],["Mang toa quay lại đúng nhà thuốc đã giới thiệu để mua thuốc.","Brings the prescription back to the pharmacy that referred them."]],
+      [["Vì sao quay lại","Why they return"],["Nhà thuốc là nơi khởi đầu hành trình, có thể kèm ưu đãi khi mua theo toa.","The pharmacy started the journey and can add a perk for filling the prescription there."]]]},
+ n6:{x:819,y:252,w:112,h:56,cls:'new',t:["Bán theo toa","Sells per Rx"],s:["Đúng compliance | Giữ khách","Compliant | Keeps the customer"],kpi:"Sell-out",k:["Nhà thuốc","Pharmacy"],
+   d:[[["Kết quả","Result"],["Bán Differin có toa hợp lệ, không còn rủi ro mystery patient.","Sells Differin with a valid prescription, no mystery-patient risk."]],
+      [["Giữ chân","Retention"],["Khách lạ trở thành khách của nhà thuốc, mua lại khi tái khám.","A stranger becomes a pharmacy customer and returns after follow-up visits."]]]},
+ out:{x:169,y:527,w:242,h:74,cls:'plat out',k:["Hiện tại","Today"],t:["Ngoài hệ thống","Outside any platform"],s:["Không data | Không giữ chân","No data | No retention"],
+   d:[[["Hiện tại","Today"],["Bán không toa hoặc reject đều diễn ra ngoài hệ thống, không ai biết khách là ai và có điều trị đúng không.","Selling without a prescription or rejecting both happen off-platform. Nobody knows who the customer is or whether they were treated properly."]]]},
+ ym:{x:429,y:527,w:242,h:74,cls:'plat ym',logo:'assets/youmed.png',lw:96,t:"YouMed",s:["Voucher | Booking | Hồ sơ patient","Voucher | Booking | Patient profile"],k:["Nền tảng | Patient","Platform | Patient"],
+   d:[[["Vai trò","Role"],["App của bệnh nhân: nhận voucher, đặt lịch bác sĩ, lưu hồ sơ khám.","The patient app: receives the voucher, books the doctor, stores visit records."]],
+      [["Nhận được","Gains"],["Thêm bệnh nhân onboard từ kênh nhà thuốc.","New patients onboarded from the pharmacy channel."]]]},
+ dw:{x:689,y:527,w:242,h:74,cls:'plat dw',logo:'assets/doctorworkspace.png',lw:96,t:"Doctor Workspace",s:["Toa điện tử | Patient data | Network nhà thuốc","e-Prescription | Patient data | Pharmacy network"],k:["Nền tảng | Bác sĩ","Platform | Doctor"],
+   d:[[["Vai trò","Role"],["Công cụ của bác sĩ: quản lý bệnh nhân, kê toa, kết nối network nhà thuốc giới thiệu.","The doctor's tool: manages patients, writes prescriptions, links to referring pharmacies."]],
+      [["Nhận được","Gains"],["Thêm bác sĩ onboard | Mỗi nhà thuốc mới là một nguồn bệnh nhân.","More doctors onboarded | Every new pharmacy is a source of patients."]]]}
+};
+const E=[
+ ["kq","n2",[[281,185],[355,185],[355,246]],"risk"],
+ ["kl","rj",[[281,141],[420,141],[420,344],[429,344]],"old"],
+ ["kl","n3",[[281,129],[485,129],[485,236]],"new"],
+ ["n3","p4",[[541,263],[615,263],[615,164]],"new"],
+ ["p4","d5",[[671,139],[745,139],[745,424]],"new"],
+ ["d5","p6",[[801,440],[810,440],[810,139],[819,139]],"new"],
+ ["p6","n6",[[875,164],[875,252]],"new"],
+ ["d5","d6",[[801,460],[819,460]],"new"]
+];
+const BEN=[
+ {ic:P,k:["Nhà thuốc","Pharmacy"],t:["Không phải reject khách","No more turning people away"],p:["Bán đúng toa, 0 rủi ro compliance | Khách lạ thành khách quen","Sells on prescription with no compliance risk | Strangers become regulars"]},
+ {ic:D,k:["Bác sĩ","Doctor"],t:["Thêm bệnh nhân + data","More patients + data"],p:["Upsell, cross-sell dịch vụ phòng khám | Tái khám","Upsell and cross-sell clinic services | Follow-ups"]},
+ {svg:1,k:["Khách hàng","Customer"],t:["Được khám, dùng thuốc an toàn","Seen by a doctor, treated safely"],p:["Có toa hợp lệ | Voucher giảm phí khám","Valid prescription | Voucher covers the visit"]},
+ {logo:1,k:"YouMed | Doctor Workspace",t:["Thêm user onboard","More users onboarded"],p:["Bệnh nhân lên YouMed | Bác sĩ và nhà thuốc vào network","Patients join YouMed | Doctors and pharmacies join the network"]}
+];
+const S={
+ a:{p:["kq","n2"],n:["<strong class='a'>Khách quen:</strong> Hỏi mua Differin → Nhà thuốc bán luôn dù không có toa → Vẫn là bán ETC không toa, không có data","<strong class='a'>Regular customer:</strong> Asks for Differin → Pharmacy sells without a prescription → Still an ETC sale with no Rx and no data"]},
+ b:{p:["kl","rj","out"],n:["<strong class='r'>Khách lạ | Hiện tại:</strong> Hỏi mua Differin, không có toa → Nhà thuốc reject vì sợ mystery patient → Mất khách, mất doanh thu","<strong class='r'>New customer | Today:</strong> Asks for Differin with no Rx → Pharmacy refuses, fearing a mystery patient → Lost customer and sale"]},
+ c:{p:["kl","n3","p4","d5","p6","n6",{n:["d6"],from:["d5"]}],n:["<strong>Khách lạ | Mô hình Hedima:</strong> Không toa → Nhà thuốc giới thiệu bác sĩ + voucher → Book khám trên YouMed → Bác sĩ kê toa → Quay lại nhà thuốc mua Differin","<strong>New customer | Hedima model:</strong> No Rx → Pharmacy refers a doctor + voucher → Books on YouMed → Doctor prescribes → Returns to buy Differin"]}
+};
+const SVGNS='http://www.w3.org/2000/svg';
+const wg=document.getElementById('wiresG'),nodes=document.getElementById('nodes'),panel=document.getElementById('panel'),stage=document.getElementById('stage'),narr=document.getElementById('narr'),bens=document.getElementById('bens');
+const MK={new:'mn',old:'mo',risk:'ma'};
+function rpath(P,R=8){let d='M'+P[0][0]+','+P[0][1];for(let i=1;i<P.length-1;i++){const [x0,y0]=P[i-1],[x1,y1]=P[i],[x2,y2]=P[i+1];const r=Math.min(R,Math.hypot(x1-x0,y1-y0)/2,Math.hypot(x2-x1,y2-y1)/2);const ax=x1-Math.sign(x1-x0)*r,ay=y1-Math.sign(y1-y0)*r,bx=x1+Math.sign(x2-x1)*r,by=y1+Math.sign(y2-y1)*r;d+=' L'+ax+','+ay+' Q'+x1+','+y1+' '+bx+','+by}const L=P[P.length-1];return d+' L'+L[0]+','+L[1]}
+E.forEach(e=>{const l=document.createElementNS(SVGNS,'path');l.setAttribute('d',rpath(e[2]));l.setAttribute('class','wire '+e[3]);l.setAttribute('marker-end','url(#'+MK[e[3]]+')');l.id='w-'+e[0]+'-'+e[1];wg.appendChild(l)});
+for(const id in N){const n=N[id],b=document.createElement('button');b.className='node '+(n.cls||'');b.id='n-'+id;
+ Object.assign(b.style,{left:n.x+'px',top:n.y+'px',width:n.w+'px',height:n.h+'px'});b.onclick=()=>show(id);nodes.appendChild(b)}
+const seg=x=>{const a=String(x).split(' | ');return a.map((p,i)=>'<span class="nb">'+p+(i<a.length-1?' |':'')+'</span>').join(' ')};
+const PERSON='<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>';
+function renderNodes(){for(const id in N){const n=N[id],b=document.getElementById('n-'+id);
+ if(n.logo){b.innerHTML='<span class="plate" style="width:'+(n.lw+16)+'px"><img src="'+n.logo+'" alt="'+T(n.t)+'" style="width:'+n.lw+'px"></span><span class="pt"><b>'+T(n.t)+'</b><small>'+T(n.s)+'</small></span>';continue}
+ b.innerHTML=(n.ticket?'<span class="ticket">'+n.ticket+'</span>':'')+'<b>'+seg(T(n.t))+'</b>'+(n.s?'<small>'+seg(T(n.s))+'</small>':'')
+  +(n.ch?'<span class="ch '+n.ch[0]+'">'+T(n.ch[1])+'</span>':'')+(n.kpi?'<span class="kpi">'+T(n.kpi)+'</span>':'')}
+ bens.innerHTML=BEN.map((x,i)=>'<div class="ben" style="left:'+(40+i*232)+'px"><span class="av">'+(x.ic?'<img src="'+x.ic+'" alt="">':x.svg?PERSON:'<img src="assets/y-mark.png" alt="" style="width:22px;height:22px;border-radius:5px">')+'</span><div class="bt"><span class="k">'+T(x.k)+'</span><b>'+T(x.t)+'</b><p>'+T(x.p)+'</p></div></div>').join('')}
+function overview(){panel.innerHTML=lang==='vi'
+ ?'<div class="k">Cách đọc</div><h2>Biến điểm nghẽn ETC thành một vòng khép kín</h2><dl><dd><b class="c-r">Điểm nghẽn</b>: Differin là thuốc ETC. Khách lạ không có toa thì nhà thuốc reject vì sợ mystery patient của Sở Y tế.</dd><dd><b class="c-a">Khách quen</b>: nhà thuốc vẫn bán không toa. Bán được nhưng không scale được.</dd><dd><b class="c-g">Mô hình Hedima</b>: voucher khám là trigger giữ chân cả 3 bên trên YouMed và Doctor Workspace.</dd></dl><div class="k">Vòng chuyển đổi</div><div class="fun"><div><i>1</i>Khách lạ hỏi mua, không có toa</div><div><i>2</i>Nhà thuốc giới thiệu bác sĩ + voucher</div><div><i>3</i>Book khám trên YouMed</div><div><i>4</i>Bác sĩ kê toa trên Doctor Workspace</div><div><i>5</i>Quay lại nhà thuốc mua Differin</div></div><div class="flag"><b>Cần confirm</b>Hãng không được trả tiền cho bác sĩ để kê đơn. Voucher cần đi qua nền tảng hoặc bên thứ 3 và không gắn điều kiện kê Differin.</div>'
+ :'<div class="k">How to read</div><h2>Turning the ETC bottleneck into a closed loop</h2><dl><dd><b class="c-r">Bottleneck</b>: Differin is prescription-only. Without a prescription, pharmacies turn strangers away for fear of Department of Health mystery patients.</dd><dd><b class="c-a">Regulars</b>: pharmacies still sell without a prescription. It works but cannot scale.</dd><dd><b class="c-g">Hedima model</b>: a consultation voucher keeps all 3 sides engaged on YouMed and Doctor Workspace.</dd></dl><div class="k">Conversion loop</div><div class="fun"><div><i>1</i>Stranger asks, no prescription</div><div><i>2</i>Pharmacy refers a doctor + voucher</div><div><i>3</i>Books a visit on YouMed</div><div><i>4</i>Doctor prescribes in Doctor Workspace</div><div><i>5</i>Returns to the pharmacy for Differin</div></div><div class="flag"><b>To confirm</b>The brand may not pay doctors to prescribe. The voucher must run through the platform or a third party and never require a Differin prescription.</div>'}
+let cur=null,playing=null,timers=[];
+function show(id){cur=id;const n=N[id];document.querySelectorAll('.node.sel').forEach(x=>x.classList.remove('sel'));document.getElementById('n-'+id).classList.add('sel');
+ panel.innerHTML='<div class="k">'+T(n.k)+(n.kpi?' | KPI '+T(n.kpi):'')+'</div><h2>'+T(n.t)+'</h2><dl>'+n.d.map(r=>'<div><dt>'+T(r[0])+'</dt><dd>'+T(r[1])+'</dd></div>').join('')+'</dl>'+(n.f?'<div class="flag"><b>'+T(UI.confirm)+'</b>'+T(n.f)+'</div>':'')}
+function clearRun(){timers.forEach(clearTimeout);timers=[];stage.classList.remove('dim','fin');playing=null;
+ document.querySelectorAll('.on').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.chip').forEach(c=>c.classList.remove('act'))}
+function play(k){clearRun();if(k==='r'){cur=null;document.querySelectorAll('.node.sel').forEach(x=>x.classList.remove('sel'));narr.innerHTML=T(UI.narr);overview();return}
+ const sc=S[k],rm=matchMedia('(prefers-reduced-motion: reduce)').matches,step=rm?0:650;playing=k;
+ document.getElementById('s-'+k).classList.add('act');stage.classList.add('dim');narr.innerHTML=T(sc.n);
+ const steps=sc.p.map((it,i)=>{const o=(it&&it.n)?it:{n:[].concat(it)};if(!o.from)o.from=i>0?[].concat(sc.p[i-1].n||sc.p[i-1]):[];return o});
+ steps.forEach((o,i)=>timers.push(setTimeout(()=>{
+   o.n.forEach(x=>{document.getElementById('n-'+x).classList.add('on');if(N[x].plat)document.getElementById('n-'+N[x].plat).classList.add('on');
+    o.from.forEach(p=>{const w=document.getElementById('w-'+p+'-'+x);if(w)w.classList.add('on');document.querySelectorAll('[data-w="'+p+'-'+x+'"]').forEach(l=>l.classList.add('on'))})});
+   if(i===steps.length-1&&k==='c')stage.classList.add('fin');
+   show(o.n[0])},i*step)))}
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>play(c.dataset.s));
+function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function setLang(l){lang=l;document.documentElement.lang=l==='vi'?'vi':'en';
+ document.querySelectorAll('[data-i]').forEach(el=>el.textContent=T(UI[el.dataset.i]));
+ document.querySelectorAll('[data-l]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
+ renderNodes();if(cur)show(cur);else overview();narr.innerHTML=playing?T(S[playing].n):T(UI.narr);store('dif-lang',l)}
+function curTheme(){const a=document.documentElement.dataset.theme;return a||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
+function setTheme(t,save){document.documentElement.dataset.theme=t;if(save)store('dif-theme',t);syncTheme()}
+function syncTheme(){const t=curTheme();document.querySelectorAll('[data-t]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===t))}
+document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>setTheme(b.dataset.t,true));
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',syncTheme);
+const st=load('dif-theme');if(st==='light'||st==='dark')setTheme(st,false);else syncTheme();
+setLang(load('dif-lang')==='en'?'en':'vi');
+const vp=document.getElementById('vp');
+function fit(){const W=vp.clientWidth,H=vp.clientHeight,sc=Math.min(W/1280,H/800),Ws=W/sc,Hs=H/sc,ox=(Ws-1280)/2,oy=Math.max(0,(Hs-800)/2);
+ Object.assign(stage.style,{width:Ws+'px',height:Hs+'px',transform:'scale('+sc+')'});
+ ['top','flow','bot'].forEach(id=>document.getElementById(id).style.left=ox+'px');['top','flow'].forEach(id=>document.getElementById(id).style.top=oy+'px');document.getElementById('bot').style.top=(oy+756)+'px'}
+addEventListener('resize',fit);fit();
+const fsb=document.getElementById('fs');
+fsb.onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch(e){fsb.title=lang==='vi'?'Trình duyệt không cho phép toàn màn hình':'Fullscreen not available here'}};
+document.addEventListener('fullscreenchange',()=>setTimeout(fit,50));
+</script>
+
+</body>
+</html>
